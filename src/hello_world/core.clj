@@ -1,6 +1,6 @@
 (ns hello-world.core)
 
-(defn handle [request]
+(defn handler [request]
   {:status 200
    :headers {"Content-Type" "Text/html"}
    :body "Hello, word"})
