@@ -1,6 +1,7 @@
 (ns hello-world.core
-    (:require [clojure.java.jdbc :as j]))
-(require '[toucan.db :as db])
+    (:require [clojure.java.jdbc :as j]
+              [toucan.db :as db]
+              [toucan.models :as models]))
 
 (def db-map {:classname   "com.mysql.jdbc.Driver"
              :subprotocol "mysql"
@@ -10,6 +11,11 @@
 
 (db/set-default-db-connection!
     db-map)
+
+;; 非常重要 见 https://github.com/metabase/toucan/blob/master/docs/setup.md#configuring-quoting-style
+(db/set-default-quoting-style! :mysql)
+
+(models/defmodel User :sys_user)
 
 (defn query []
     (j/query db-map ["SELECT * FROM sys_user"]))
